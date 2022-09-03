@@ -1,32 +1,31 @@
 import {useRouter} from 'next/router'
+import Navbar from '../../components/Navbar';
+import SingleProduct from '../../components/SingleProduct';
 
 
 
 function Products({users}){
     const router=useRouter()
+    const array=[1,2,3,4,5,6,7,7,7,8,8,8,5];
     const handleClick=((e)=>{
           router.push(`/products/${e.id}`)
     })
     return <><div>
-            
-            <div style={{display:"flex",flexWrap:"wrap"}}>
-                {users.map((e)=>{
-                    return <div onClick={(()=>{handleClick(e)})} style={{height:"100px",width:"100px",margin:"20px",backgroundColor:"white",color:"black"}}>{e.first_name}</div>
+        <Navbar/>
+             <h1 className='heading-p'>Our top products</h1>
+            <div style={{display:"flex",flexWrap:"wrap",marginLeft:"200px"}}>
+                {array?.map((e)=>{
+                    return <div onClick={((e)=>{handleClick(e)})}>
+                        {e}
+                        <SingleProduct  />
+                    </div>
                 })}
             </div>
         
         </div></>
 }
 
-export async function getStaticProps(){
-    const response=await fetch('https://reqres.in/api/users?page=2');
-    const data=await response.json();
-    return {
-        props:{
-            users:data.data
-        }
-    }
-}
+
 
 export default Products;
 
